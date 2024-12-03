@@ -1,5 +1,7 @@
 package com.example.cqupt3g;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -8,16 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class HomeActivity extends AppCompatActivity {
-    private Button mBtnClickMe;
+    private Button mBtnLogOut;
     private ImageView mIvCquptIcon;
     private TextView mTvThirdGStory;
+
+    public static void start(Context context){
+        Intent intent = new Intent(context, HomeActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,24 +29,25 @@ public class HomeActivity extends AppCompatActivity {
         initView();
         initEvent();
     }
-
     private void initView() {
-        mBtnClickMe = findViewById(R.id.btn_home_click_me);
+        mBtnLogOut = findViewById(R.id.btn_home_log_out);
         mIvCquptIcon = findViewById(R.id.iv_home_cqupt_icon);
         mTvThirdGStory = findViewById(R.id.tv_home_third_g_story);
         mTvThirdGStory.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
     private void initEvent() {
-        mBtnClickMe.setOnClickListener(new View.OnClickListener() {
+        mBtnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickMe();
+                logOut();
             }
         });
     }
 
-    private void clickMe() {
-        Toast.makeText(this, "不知道为什么题目演示没有btn还要写btn，姑且先写一下", Toast.LENGTH_SHORT).show();
+    private void logOut() {
+        Toast.makeText(this, "登出", Toast.LENGTH_SHORT).show();
+        LoginActivity.start(this);
+        finish();
     }
 }

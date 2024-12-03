@@ -23,7 +23,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="20sp"
-        android:drawableLeft="@drawable/ic_login_user"
+        android:drawableStart="@drawable/ic_login_user"
         android:drawablePadding="10dp"
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,21 +35,38 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="5sp"
-        android:drawableLeft="@drawable/ic_login_password"
+        android:drawableStart="@drawable/ic_login_password"
         android:drawablePadding="10sp"
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_login_username" />
 
+    <CheckBox
+        android:id="@+id/cb_login_remember_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remember_password"
+        app:layout_constraintStart_toStartOf="@+id/et_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/et_login_password"/>
+
     <Button
         android:id="@+id/btn_login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20sp"
         android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
+        android:layout_marginStart="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_login_password"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/et_login_password"
+        app:layout_constraintTop_toBottomOf="@id/cb_login_remember_password" />
 
+    <Button
+        android:id="@+id/btn_login_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_login_login"
+        app:layout_constraintTop_toBottomOf="@id/cb_login_remember_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
