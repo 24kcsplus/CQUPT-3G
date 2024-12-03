@@ -27,14 +27,14 @@ public class HomeActivity extends AppCompatActivity {
         initEvent();
     }
 
-    private void initView(){
+    private void initView() {
         mBtnClickMe = findViewById(R.id.btn_home_click_me);
         mIvCquptIcon = findViewById(R.id.iv_home_cqupt_icon);
         mTvThirdGStory = findViewById(R.id.tv_home_third_g_story);
         mTvThirdGStory.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
-    private void initEvent(){
+    private void initEvent() {
         mBtnClickMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void clickMe(){
-        Toast.makeText(this,"不知道为什么题目演示没有btn还要写btn，姑且先写一下",Toast.LENGTH_SHORT).show();
+    private void clickMe() {
+        Toast.makeText(this, "不知道为什么题目演示没有btn还要写btn，姑且先写一下", Toast.LENGTH_SHORT).show();
     }
 }
