@@ -17,7 +17,8 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView mIvCquptIcon;
     private TextView mTvThirdGStory;
 
-    public static void start(Context context){
+    // 设置转入此 Activity 的入口
+    public static void start(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
         context.startActivity(intent);
     }
@@ -29,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
         initView();
         initEvent();
     }
+
+    // 初始化布局
     private void initView() {
         mBtnLogOut = findViewById(R.id.btn_home_log_out);
         mIvCquptIcon = findViewById(R.id.iv_home_cqupt_icon);
@@ -36,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         mTvThirdGStory.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
+    // 初始化此 Activity 事件
     private void initEvent() {
         mBtnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    // 登出，跳回 LoginActivity
     private void logOut() {
         Toast.makeText(this, "登出", Toast.LENGTH_SHORT).show();
         LoginActivity.start(this);
