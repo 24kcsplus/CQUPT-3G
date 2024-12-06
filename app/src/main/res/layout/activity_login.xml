@@ -7,58 +7,81 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-    <ImageView
-        android:id="@+id/iv_login_cqupt_icon"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv_login_hoshino_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/ic_cqupt_logo"
+        android:src="@drawable/img_hoshino_big_head"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.25"
+        app:shapeAppearance="@style/roundedCornerImageStyle" />
 
-    <EditText
-        android:id="@+id/et_login_username"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_login_username"
+        style="?attr/textInputFilledStyle"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20sp"
-        android:drawableStart="@drawable/ic_login_user"
-        android:drawablePadding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="@string/username"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_login_cqupt_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/siv_login_hoshino_image"
+        app:startIconContentDescription="@string/username"
+        app:startIconDrawable="@drawable/ic_login_user">
 
-    <EditText
-        android:id="@+id/et_login_password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_login_username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_login_password"
+        style="?attr/textInputFilledStyle"
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5sp"
-        android:drawableStart="@drawable/ic_login_password"
-        android:drawablePadding="10dp"
+        android:layout_height="wrap_content"
         android:hint="@string/password"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_login_username" />
+        app:layout_constraintTop_toBottomOf="@+id/til_login_username"
+        app:startIconContentDescription="@string/password"
+        app:startIconDrawable="@drawable/ic_login_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/cb_login_remember_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember_password"
-        app:layout_constraintStart_toStartOf="@+id/et_login_password"
-        app:layout_constraintTop_toBottomOf="@+id/et_login_password" />
+        app:layout_constraintEnd_toEndOf="@+id/til_login_password"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/til_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/til_login_password" />
 
     <Button
         android:id="@+id/btn_login_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20sp"
         android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="@+id/et_login_password"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="@+id/et_login_password"
+        app:layout_constraintEnd_toEndOf="@+id/til_login_password"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="@+id/til_login_password"
         app:layout_constraintTop_toBottomOf="@id/cb_login_remember_password" />
 
     <Button
@@ -66,7 +89,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_login_login"
-        app:layout_constraintTop_toBottomOf="@id/cb_login_remember_password" />
+        app:layout_constraintEnd_toEndOf="@+id/til_login_password"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="@+id/til_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/cb_login_remember_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>

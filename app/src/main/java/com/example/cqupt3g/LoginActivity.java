@@ -4,26 +4,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cqupt3g.widget.RegisterDialog;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity implements RegisterDialog.OnRegisterListener {
 
     private static final String TAG = "LoginActivity";
     private String username, password;
+    private boolean isFailedLogin;
 
-    private ImageView mIvCquptIcon;
-    private EditText mEtLoginUsername;
-    private EditText mEtLoginPassword;
+    private ImageView mSivLoginHoshinoImage;
+    private TextInputLayout mTilLoginUsername;
+    private TextInputLayout mTilLoginPassword;
+    private TextInputEditText mTietLoginUsername;
+    private TextInputEditText mTietLoginPassword;
     private Button mBtnLogin;
     private Button mBtnRegister;
     private CheckBox mCbRememberPassword;
@@ -44,9 +50,11 @@ public class LoginActivity extends AppCompatActivity implements RegisterDialog.O
 
     // 初始化布局
     private void initView() {
-        mIvCquptIcon = findViewById(R.id.iv_login_cqupt_icon);
-        mEtLoginUsername = findViewById(R.id.et_login_username);
-        mEtLoginPassword = findViewById(R.id.et_login_password);
+        mSivLoginHoshinoImage = findViewById(R.id.siv_login_hoshino_image);
+        mTilLoginUsername = findViewById(R.id.til_login_username);
+        mTilLoginPassword = findViewById(R.id.til_login_password);
+        mTietLoginUsername = findViewById(R.id.tiet_login_username);
+        mTietLoginPassword = findViewById(R.id.tiet_login_password);
         mBtnLogin = findViewById(R.id.btn_login_login);
         mBtnRegister = findViewById(R.id.btn_login_register);
         mCbRememberPassword = findViewById(R.id.cb_login_remember_password);
@@ -56,6 +64,50 @@ public class LoginActivity extends AppCompatActivity implements RegisterDialog.O
     // 检查是否记住过密码
     private void initEvent() {
         isRemembered();
+        mTietLoginUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                readText();
+                if (username.isEmpty()) {
+                    mTilLoginUsername.setError("用户名不能为空");
+                } else {
+                    mTilLoginUsername.setError(null);
+                }
+            }
+        });
+        mTietLoginPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                readText();
+
+                if (isFailedLogin) {
+                    isFailedLogin = false;
+                    return;
+                }
+
+                if (password.isEmpty()) {
+                    mTilLoginPassword.setError("密码不能为空");
+                } else {
+                    mTilLoginPassword.setError(null);
+                }
+            }
+        });
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,8 +158,24 @@ public class LoginActivity extends AppCompatActivity implements RegisterDialog.O
 
         // 登录检查逻辑
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+
+            if (username.isEmpty()) {
+                mTilLoginUsername.setError("用户名不能为空");
+            } else {
+                mTilLoginUsername.setError(null);
+            }
+
+            if (password.isEmpty()) {
+                mTilLoginPassword.setError("密码不能为空");
+            } else {
+                mTilLoginPassword.setError(null);
+            }
+
         } else {
+
+            mTilLoginUsername.setError(null);
+            mTilLoginPassword.setError(null);
+
             if (username.equals(cmpUsername) && password.equals(cmpPassword)) {
                 loginSuccess();
             } else {
@@ -125,17 +193,18 @@ public class LoginActivity extends AppCompatActivity implements RegisterDialog.O
 
     // 登陆失败提醒
     private void loginFailed() {
-        Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+        mTilLoginPassword.setError("用户名或密码错误");
+        isFailedLogin = true;
 
         // 错误时清除密码，并聚焦到密码框
-        mEtLoginPassword.setText("");
-        mEtLoginPassword.requestFocus();
+        mTietLoginPassword.setText("");
+        mTietLoginPassword.requestFocus();
     }
 
     // 读取 EditView 内容
     private void readText() {
-        username = mEtLoginUsername.getText().toString();
-        password = mEtLoginPassword.getText().toString();
+        username = mTietLoginUsername.getText().toString();
+        password = mTietLoginPassword.getText().toString();
     }
 
     // 检查是否记住过密码
@@ -143,11 +212,11 @@ public class LoginActivity extends AppCompatActivity implements RegisterDialog.O
         SharedPreferences sharedPreferences = getSharedPreferences("user", 0);
 
         username = sharedPreferences.getString("username", "");
-        mEtLoginUsername.setText(username);
+        mTietLoginUsername.setText(username);
 
         if (sharedPreferences.getBoolean("remember_password", false)) {
             password = sharedPreferences.getString("password", "");
-            mEtLoginPassword.setText(password);
+            mTietLoginPassword.setText(password);
             mCbRememberPassword.setChecked(true);
             Log.d(TAG, "(LoginActivity:79)-->>曾经记住过密码");
         } else {
